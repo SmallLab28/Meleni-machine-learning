@@ -1,0 +1,3 @@
+Machine Learning + Intelligence / Engine = MELENI
+
+THE MACHINE LEARNING LIBRARY THAT BUILD FROM SCRATCH

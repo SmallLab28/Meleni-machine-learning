@@ -1,0 +1,4 @@
+gdb ./build/app.exe
+set pagination off
+run
+bt full

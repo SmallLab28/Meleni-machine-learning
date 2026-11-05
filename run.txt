@@ -1,0 +1,7 @@
+chcp 65001
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8;
+cd build; $sw = [System.Diagnostics.Stopwatch]::StartNew(); ./app.exe; $code = $LASTEXITCODE; $sw.Stop(); cd ..; "Code: $code | Time: $($sw.ElapsedMilliseconds)ms"
+
+linux
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8

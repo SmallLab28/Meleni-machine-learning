@@ -1,0 +1,47 @@
+#include "core/map_file.hpp"
+#include <iostream>
+#include <unordered_map>
+#include "token/vocab.hpp"
+#include <nlohmann/json.hpp>
+#include <string.h>
+#include <stdlib.h>
+using json = nlohmann::json;
+
+state_vocab map_to_json(map_file &data, vocab &vocab_data){
+    vocab_data.json_data = json::parse(data.file, data.file + data.file_size);
+    vocab_data.vocab = vocab_data.json_data["model"]["vocab"].get<std::unordered_map<std::string, int>>();
+    return MLN_VC_OK;
+}
+
+int lookup_json(vocab &vocab_data, const std::string &key){
+    auto it = vocab_data.vocab.find(key);
+    if (it != vocab_data.vocab.end()){
+        return it->second;
+    }
+    return -1;
+}
+
+
+#include "core/map_file.hpp"
+#include <iostream>
+#include <unordered_map>
+#include "token/vocab.hpp"
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
+state_vocab map_to_json(map_file &data, vocab &vocab_data){
+    vocab_data.json_data = json::parse(data.file, data.file + data.file_size);
+    vocab_data.json_tokens = vocab_data.json_data["model"]["vocab"];
+    return MLN_VC_OK;
+}
+
+int lookup_json(vocab &vocab_data, const std::string &key){
+    auto it = vocab_data.json_tokens.find(key);
+    if (it != vocab_data.json_tokens.end()){
+        int found_id = it->get<int>();
+        return found_id;
+    }
+    else {
+        return -1;
+    }
+}
